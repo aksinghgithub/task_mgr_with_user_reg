@@ -1,12 +1,14 @@
+## Task Manager project for Python Basics course ##
+
 import json
 import hashlib
 
-# ----- SECTION 1: User Registration and Login -----
+# ----- SECTION 1: User Registration and Login ----- #
 
-# File to store user data
+# File to store user data #
 USERS_FILE = 'users.json'
 
-# Load users from the file
+# Load users from the file #
 def load_users():
     try:
         with open(USERS_FILE, 'r') as file:
@@ -14,16 +16,16 @@ def load_users():
     except FileNotFoundError:
         return {}
 
-# Save users to the file
+# Save users to the file #
 def save_users(users):
     with open(USERS_FILE, 'w') as file:
         json.dump(users, file)
 
-# Hash the password using SHA-256
+# Hash the password using SHA-256 #
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
-# Register a new user
+# Register a new user #
 def register_user(username, password):
     users = load_users()
 
@@ -36,7 +38,7 @@ def register_user(username, password):
     save_users(users)
     return "User registered successfully!"
 
-# Login user
+# Login user #
 def login_user(username, password):
     users = load_users()
 
@@ -50,12 +52,12 @@ def login_user(username, password):
     else:
         return "Incorrect password."
 
-# ----- SECTION 2: Task Management -----
+## ----- SECTION 2: Task Management ----- ##
 
-# File to store task data
+# File to store task data #
 TASKS_FILE = 'tasks.json'
 
-# Load tasks from the file
+# Load tasks from the file #
 def load_tasks():
     try:
         with open(TASKS_FILE, 'r') as file:
@@ -63,12 +65,12 @@ def load_tasks():
     except FileNotFoundError:
         return {}
 
-# Save tasks to the file
+# Save tasks to the file #
 def save_tasks(tasks):
     with open(TASKS_FILE, 'w') as file:
         json.dump(tasks, file)
 
-# Create a task for a user
+# Create a task for a user #
 def create_task(username, task_name):
     tasks = load_tasks()
     if username not in tasks:
@@ -82,7 +84,7 @@ def create_task(username, task_name):
     save_tasks(tasks)
     return "Task added successfully."
 
-# View all tasks for a user (with index)
+# View all tasks for a user (with index) #
 def view_tasks(username):
     tasks = load_tasks()
     user_tasks = tasks.get(username, [])
@@ -95,7 +97,7 @@ def view_tasks(username):
         task_list.append(f"{i}. Task: {task['name']} | Status: {status}")
     return "\n".join(task_list)
 
-# Mark a task as completed by index
+# Mark a task as completed by index #
 def mark_task_complete(username, task_index):
     tasks = load_tasks()
 
@@ -109,7 +111,7 @@ def mark_task_complete(username, task_index):
     
     return "No tasks found."
 
-# Delete a task by index
+# Delete a task by index #
 def delete_task(username, task_index):
     tasks = load_tasks()
 
@@ -123,7 +125,7 @@ def delete_task(username, task_index):
     
     return "No tasks found."
 
-# ----- SECTION 3: User Interaction -----
+## ----- SECTION 3: User Interaction ----- ##
 
 def main():
     while True:
@@ -131,16 +133,16 @@ def main():
         print("1. Register")
         print("2. Login")
         print("3. Quit")
-        choice = input("Select an option (1, 2, or 3): ")
+        choice = input("Select option (1, 2, or 3): ")
 
         if choice == '1':
-            username = input("Enter a username: ")
-            password = input("Enter a password: ")
+            username = input("Enter username: ")
+            password = input("Enter password: ")
             print(register_user(username, password))
 
         elif choice == '2':
-            username = input("Enter your username: ")
-            password = input("Enter your password: ")
+            username = input("Enter username: ")
+            password = input("Enter password: ")
             login_result = login_user(username, password)
             print(login_result)
 
@@ -154,7 +156,7 @@ def main():
         else:
             print("Invalid choice. Please select a valid option.")
 
-# ----- SECTION 4: Task Manager After Login -----
+## ----- SECTION 4: Task Manager After Login ----- ##
 
 def task_manager(username):
     while True:
@@ -189,6 +191,6 @@ def task_manager(username):
         else:
             print("Invalid choice. Please select a valid option.")
 
-# ----- Run the Program -----
+# ----- Run the Program -----#
 if __name__ == '__main__':
     main()
